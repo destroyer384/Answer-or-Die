@@ -1,3 +1,5 @@
+-- contact rukoblud21#2610 to update answers
+
 -- Get the required instances
 local Players = game:GetService("Players")
 local player = Players["super_destroyer384"]
@@ -12,14 +14,14 @@ local questionAnswerDict = {
   ["Name one of the world's hottest countries"] = "Burkina Faso",
   ["Name a food that starts with the letter P"] = "Passionfruit",
   ["Name a day of the week"] = "Wednesday",
-  ["Name something people wear"] = "Necklace",
+  ["Name something people wear"] = "Underwear",
   ["Name a planet that is part of our solar system"] = "Neptune",
   ["Name a type of weather"] = "Stormy",
   ["Name something you do in your sleep"] = "Nightmare",
   ["Name one of the four seasons"] = "Winter",
   ["Name something you do at school"] = "Physical education",
   ["Name any natural hair color"] = "Brunette",
-  ["Name any capital city in Europe"] = "Luxembourg",
+  ["Name any capital city in Europe"] = "Vaticancity",
   ["Name a country that starts with the letter A"] = "Afghanistan",
   ["Name one of the world's coldest countries"] = "Antarctica",
   ["Name one of the seven colors of the rainbow"] = "Purple",
@@ -51,6 +53,17 @@ local function onTextChanged()
     local answer = questionAnswerDict[question]
     if answer then
         setclipboard(answer)
+        
+        wait(7.5)
+
+        local args = {
+            [1] = "S_System_SubmitAnswer",
+            [2] = {
+                [1] = answer
+            }
+        }
+        
+        game:GetService("ReplicatedStorage").Common.Library.Network.RemoteFunction:InvokeServer(unpack(args))
     else
         print(question)
     end
