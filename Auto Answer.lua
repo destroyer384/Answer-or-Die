@@ -1,8 +1,6 @@
--- contact rukoblud21#2610 to update answers
-
 -- Get the required instances
 local Players = game:GetService("Players")
-local player = Players["super_destroyer384"]
+local player = Players.LocalPlayer
 local questionTxt = player.PlayerGui.Main.Question.Bg.QuestionTxt
 
 -- Define a dictionary with questions and answers
@@ -52,17 +50,13 @@ local function onTextChanged()
 
     local answer = questionAnswerDict[question]
     if answer then
-        setclipboard(answer)
-        
-        wait(7.5)
-
+        wait(8.5)
         local args = {
             [1] = "S_System_SubmitAnswer",
             [2] = {
                 [1] = answer
             }
         }
-        
         game:GetService("ReplicatedStorage").Common.Library.Network.RemoteFunction:InvokeServer(unpack(args))
     else
         print(question)
