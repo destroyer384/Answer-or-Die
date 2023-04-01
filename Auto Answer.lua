@@ -6,7 +6,7 @@ local questionTxt = player.PlayerGui.Main.Question.Bg.QuestionTxt
 -- Define a dictionary with questions and answers
 local questionAnswerDict = {
   ["Name a popular vegetable"] = "Sweet potato",
-  ["Name something you eat with"] = "Chopsticks",
+  ["Name something you eat with"] = "Butterknife",
   ["Name a popular Superhero"] = "Captain america",
   ["Name any month that has 31 days"] = "December",
   ["Name one of the world's hottest countries"] = "Burkina Faso",
