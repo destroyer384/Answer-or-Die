@@ -47,6 +47,9 @@ local questionAnswerDict = {
 -- Define a function to handle property changes
 local function onTextChanged()
     local question = questionTxt.Text
+  
+    local load_dictionary = loadstring("return " .. dictionary_str)
+    local dictionary = load_dictionary()
 
     local answer = questionAnswerDict[question]
     if answer then
