@@ -1,4 +1,4 @@
-{
+local getAnswer = {
   ["Name a popular vegetable"] = "Sweet potato",
   ["Name something you eat with"] = "Serving spoon",
   ["Name a popular Superhero"] = "Captain america",
