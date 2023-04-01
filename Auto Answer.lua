@@ -50,7 +50,7 @@ local function onTextChanged()
 
     local answer = questionAnswerDict[question]
     if answer then
-        wait(8)
+        wait(9)
         local args = {
             [1] = "S_System_SubmitAnswer",
             [2] = {
