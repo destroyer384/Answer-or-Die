@@ -12,7 +12,7 @@ local questionAnswerDict = {
   ["Name one of the world's hottest countries"] = "Burkina Faso",
   ["Name a food that starts with the letter P"] = "Passionfruit",
   ["Name a day of the week"] = "Wednesday",
-  ["Name something people wear"] = "Underwear",
+  ["Name something people wear"] = "Contact lense",
   ["Name a planet that is part of our solar system"] = "Neptune",
   ["Name a type of weather"] = "Stormy",
   ["Name something you do in your sleep"] = "Nightmare",
@@ -20,13 +20,13 @@ local questionAnswerDict = {
   ["Name something you do at school"] = "Physical education",
   ["Name any natural hair color"] = "Brunette",
   ["Name any capital city in Europe"] = "Vaticancity",
-  ["Name a country that starts with the letter A"] = "Afghanistan",
+  ["Name a country that starts with the letter A"] = "Antigua and barabuda",
   ["Name one of the world's coldest countries"] = "Switzerland",
   ["Name one of the seven colors of the rainbow"] = "Purple",
   ["Name a popular fruit"] = "Passionfruit",
   ["Name a famous Roblox Youtuber"] = "Inquisitormaster",
   ["Name one of the world's most popular car colors"] = "Silver",
-  ["Name an animal that walks slowly"] = "Tortoise",
+  ["Name an animal that walks slowly"] = "Caterpillar",
   ["Name any part of the head"] = "Forehead",
   ["Name a popular electronic device"] = "Electricguitar",
   ["Name something you find on pizza"] = "Pepperoni",
@@ -40,7 +40,7 @@ local questionAnswerDict = {
   ["Name one of the fastest animals"] = "Swordfish",
   ["Name an animal that can fly"] = "Hummingbird",
   ["What is something you eat with your hands"] = "Chicken nuggets",
-  ["What is something you can sit on"] = "Gaming chair",
+  ["What is something you can sit on"] = "Rocking chair",
 }
 
 
