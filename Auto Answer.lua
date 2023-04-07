@@ -1,10 +1,14 @@
 -- Get the required instances
+local Workspace = game:GetService("Workspace")
+local Towers = Workspace["__MAP"].Rooms
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local questionTxt = player.PlayerGui.Main.Question.Bg.QuestionTxt
 
+
 local myGainedBlocks = 0
 local otherPlayerBlocks = 0
+local prevAnswer = ""
 
 -- Define a dictionary with questions and answers
 local getAnswer = {
@@ -66,9 +70,35 @@ local function onTextChanged()
     end
 end
 
--- Connect the function to the Text property change signal
-questionTxt:GetPropertyChangedSignal("Text"):Connect(onTextChanged)
+-- Show all letters in everyone's tower 
+local function getLetters()
+    local function collectTextFromParts(folder)
+        local concatenatedText = ""
+        for _, part in ipairs(folder:GetChildren()) do
+            if part.Name:match("^%d+$") and part:FindFirstChild("SurfaceGui") and part.SurfaceGui:FindFirstChild("Main") and part.SurfaceGui.Main:FindFirstChild("LetterTxt") then
+                concatenatedText = concatenatedText .. part.SurfaceGui.Main.LetterTxt.Text
+            end
+        end
+        return concatenatedText
+    end
 
+    local function reverseString(letters)
+        local reversed = ""
+        for i = letters:len(), 1, -1 do
+            reversed = reversed .. letters:sub(i, i)
+        end
+        return reversed
+    end
+
+    for i = 1, 8 do
+        local folder = Towers[tostring(i)].Letters
+        if collectTextFromParts(folder).len ~= 0 then
+            print(reverseString(collectTextFromParts(folder)))
+        end
+    end
+end
+
+-- Define a function to notify when someone has a better answer
 local function onBlockGainTemplateAdded(newBlockGainTemplate)
     if newBlockGainTemplate.Name == "BlockGainTemplate" then
         local blockGainTxt = newBlockGainTemplate.BlockGainTxt
@@ -88,10 +118,14 @@ local function onBlockGainTemplateAdded(newBlockGainTemplate)
             elseif otherPlayer ~= nil then
                 otherPlayerBlocks = tonumber(gainedBlocks)
 
-                if myGainedBlocks < otherPlayerBlocks then
+                if myGainedBlocks > otherPlayerBlocks and myGainedBlocks ~= 0 then
+                    prevAnswer == getAnswer[question]
+
                     print("Enemy player name:", otherPlayer)
                     print("Blocks gained:", getAnswer[questionTxt.Text], myGainedBlocks, "-", otherPlayerBlocks)
                     print("Question:", questionTxt.Text)
+                    print("Possible answers:")
+                    getLetters()
                 end
             else
                 print("Player not found:", playerName)
@@ -100,4 +134,5 @@ local function onBlockGainTemplateAdded(newBlockGainTemplate)
     end
 end
 
+questionTxt:GetPropertyChangedSignal("Text"):Connect(onTextChanged)
 game:GetService("Players").LocalPlayer.PlayerGui.Main.BlockGain.ChildAdded:Connect(onBlockGainTemplateAdded)
