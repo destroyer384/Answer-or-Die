@@ -49,7 +49,7 @@ local function onTextChanged()
     local question = questionTxt.Text
     local answer = getAnswer[question]
     if answer then
-        wait( 5 + (string.len(answer) / 5) )
+        wait( 6 + (string.len(answer) / 4) )
         local args = {
             [1] = "S_System_SubmitAnswer",
             [2] = {
