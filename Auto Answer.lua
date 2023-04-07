@@ -7,23 +7,23 @@ local Towers = Workspace["__MAP"].Rooms -- 8 towers
 
 -- Define a dictionary with questions and answers
 local getAnswer = {
-    ["Name a popular vegetable"] = "Sweet potato",
-    ["Name something you eat with"] = "Serving spoon",
-    ["Name a popular Superhero"] = "Captain america",
+    ["Name a popular vegetable"] = "Sweetpotato",
+    ["Name something you eat with"] = "Servingspoon",
+    ["Name a popular Superhero"] = "Captainamerica",
     ["Name any month that has 31 days"] = "December",
-    ["Name one of the world's hottest countries"] = "United Arab Emirates",
+    ["Name one of the world's hottest countries"] = "UnitedArabEmirates",
     ["Name a food that starts with the letter P"] = "Passionfruit",
     ["Name a day of the week"] = "Wednesday",
-    ["Name something people wear"] = "Contact lense",
+    ["Name something people wear"] = "Contactlense",
     ["Name a planet that is part of our solar system"] = "Neptune",
     ["Name a type of weather"] = "Thunderstorm",
     ["Name something you do in your sleep"] = "Nightmare",
     ["Name one of the four seasons"] = "Winter",
-    ["Name something you do at school"] = "Physical education",
+    ["Name something you do at school"] = "Physicaleducation",
     ["Name any natural hair color"] = "Brunette",
     ["Name any capital city in Europe"] = "Vaticancity",
-    ["Name a country that starts with the letter A"] = "Antigua and barabuda",
-    ["Name one of the world's coldest countries"] = "United States of America",
+    ["Name a country that starts with the letter A"] = "Antiguaandbarabuda",
+    ["Name one of the world's coldest countries"] = "United StatesofAmerica",
     ["Name one of the seven colors of the rainbow"] = "Purple",
     ["Name a popular fruit"] = "Passionfruit",
     ["Name a famous Roblox Youtuber"] = "Inquisitormaster",
@@ -34,15 +34,15 @@ local getAnswer = {
     ["Name something you find on pizza"] = "Mozzarella",
     ["Name one of Santa's nine reindeers that show up in Christmas"] = "Rudolph",
     ["Name a topping that is usually in a hamburger"] = "Mayonnaise",
-    ["Name a musical instrument"] = "Electric guitar",
+    ["Name a musical instrument"] = "Electricguitar",
     ["Name any popular animal that starts with the letter C"] = "Caterpillar",
-    ["Name a popular game on Roblox"] = "Natural Disaster Survival",
-    ["Name a social media app"] = "Facebook messenger",
-    ["Name a famous sport that is played in teams"] = "American football",
+    ["Name a popular game on Roblox"] = "NaturalDisasterSurvival",
+    ["Name a social media app"] = "Facebookmessenger",
+    ["Name a famous sport that is played in teams"] = "Americanfootball",
     ["Name one of the fastest animals"] = "Swordfish",
     ["Name an animal that can fly"] = "Hummingbird",
-    ["What is something you eat with your hands"] = "Chicken nuggets",
-    ["What is something you can sit on"] = "Rocking chair",
+    ["What is something you eat with your hands"] = "Chickennuggets",
+    ["What is something you can sit on"] = "Rockingchair",
     ["undefined"] = "lol"
 }
 
@@ -71,7 +71,6 @@ local function getOthersAnswers()
     return answers
 end
 
--- count amount of specific chars in a string
 local function countDashes(String)
     local Count = 0
     for i = 1, #String do
@@ -147,7 +146,7 @@ local function onQuestionUpdate()
 
     -- Reset data from previous question
     MyBlocks = string.len(getAnswer[Gui.Question.Bg.QuestionTxt.Text])
-    TheirBlocks = 0
+    Blocks = 0
     MaxLetters = 0
     MaxLettersString = ""
     MaxLettersIndex = 0
