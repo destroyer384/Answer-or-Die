@@ -3,6 +3,9 @@ local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local questionTxt = player.PlayerGui.Main.Question.Bg.QuestionTxt
 
+local myGainedBlocks = 0
+local otherPlayerBlocks = 0
+
 -- Define a dictionary with questions and answers
 local getAnswer = {
   ["Name a popular vegetable"] = "Sweet potato",
@@ -46,10 +49,13 @@ local getAnswer = {
 
 -- Define a function to handle property changes
 local function onTextChanged()
+    myGainedBlocks = 0
+    otherPlayerBlocks = 0
+    
     local question = questionTxt.Text
     local answer = getAnswer[question]
     if answer then
-        wait( 6 + (string.len(answer) / 4) )
+        wait( 5 + (string.len(answer) / 5) )
         local args = {
             [1] = "S_System_SubmitAnswer",
             [2] = {
@@ -62,3 +68,36 @@ end
 
 -- Connect the function to the Text property change signal
 questionTxt:GetPropertyChangedSignal("Text"):Connect(onTextChanged)
+
+local function onBlockGainTemplateAdded(newBlockGainTemplate)
+    if newBlockGainTemplate.Name == "BlockGainTemplate" then
+        local blockGainTxt = newBlockGainTemplate.BlockGainTxt
+        local playerName, gainedBlocks = blockGainTxt.Text:match("(.+) submitted their answer and gained (%d+) blocks.")
+
+        if playerName and gainedBlocks then
+            local otherPlayer = nil
+            for _, p in ipairs(Players:GetPlayers()) do
+                if p.DisplayName == playerName then
+                    otherPlayer = p
+                    break
+                end
+            end
+
+            if otherPlayer == player then
+                myGainedBlocks = tonumber(gainedBlocks)
+            elseif otherPlayer ~= nil then
+                otherPlayerBlocks = tonumber(gainedBlocks)
+
+                if myGainedBlocks < otherPlayerBlocks then
+                    print("Enemy player name:", otherPlayer)
+                    print("Blocks gained:", getAnswer[questionTxt.Text], myGainedBlocks, "-", otherPlayerBlocks)
+                    print("Question:", questionTxt.Text)
+                end
+            else
+                print("Player not found:", playerName)
+            end
+        end
+    end
+end
+
+game:GetService("Players").LocalPlayer.PlayerGui.Main.BlockGain.ChildAdded:Connect(onBlockGainTemplateAdded)
