@@ -5,13 +5,6 @@ local Gui = LocalPlayer.PlayerGui.Main
 local Question = Gui.Question.Bg.QuestionTxt
 local Towers = Workspace["__MAP"].Rooms -- 8 towers
 
-local MyBlocks = 0
-local MaxLetters = 0
-local MaxLettersString = ""
-local MaxLettersIndex = 1
-local EveryAnswer = {}
-local Blocks = 0
-
 -- Define a dictionary with questions and answers
 local getAnswer = {
     ["Name a popular vegetable"] = "Sweet potato",
@@ -36,7 +29,7 @@ local getAnswer = {
     ["Name a famous Roblox Youtuber"] = "Inquisitormaster",
     ["Name one of the world's most popular car colors"] = "Silver",
     ["Name an animal that walks slowly"] = "Caterpillar",
-    ["Name any part of the head"] = "Forehead",
+    ["Name any part of your head"] = "Forehead",
     ["Name a popular electronic device"] = "Electricguitar",
     ["Name something you find on pizza"] = "Mozzarella",
     ["Name one of Santa's nine reindeers that show up in Christmas"] = "Rudolph",
@@ -50,7 +43,16 @@ local getAnswer = {
     ["Name an animal that can fly"] = "Hummingbird",
     ["What is something you eat with your hands"] = "Chicken nuggets",
     ["What is something you can sit on"] = "Rocking chair",
+    ["undefined"] = "lol"
 }
+
+local MyBlocks = string.len(getAnswer[Gui.Question.Bg.QuestionTxt.Text])
+local MaxLetters = 0
+local MaxLettersString = ""
+local MaxLettersIndex = 1
+local EveryAnswer = {}
+local Blocks = 0
+local LastQuestion = "undefined"
 
 local function getOthersAnswers()
     local answers = {}
@@ -122,7 +124,7 @@ end
 local function getTheAnswer()
     -- Print raw answer
     if MaxLettersString and MaxLetters then
-        print("Question:", game:GetService("Players").LocalPlayer.PlayerGui.Main.Question.Bg.QuestionTxt.Text)
+        print("Question:", LastQuestion)
         print("Got the answer:", string.sub(getOthersAnswers()[MaxLettersIndex], 1, MaxLetters))
     else
         print("omg no")
@@ -133,26 +135,26 @@ local function onTimerUpdate()
     -- When answers sumbitted and all blocks appeared, find the longest answer
     if Gui.Question.Bg.TimerTxt.Text == "00:01" then
         parseLongest()
+        LastQuestion = Gui.Question.Bg.QuestionTxt.Text
     end
 end
 
 local function onQuestionUpdate()
-    
     if MyBlocks < MaxLetters then
         getTheAnswer()
     end
     wait(0.25)
 
     -- Reset data from previous question
-    MyBlocks = string.len(getAnswer[game:GetService("Players").LocalPlayer.PlayerGui.Main.Question.Bg.QuestionTxt.Text])
+    MyBlocks = string.len(getAnswer[Gui.Question.Bg.QuestionTxt.Text])
     TheirBlocks = 0
     MaxLetters = 0
     MaxLettersString = ""
     MaxLettersIndex = 0
 
-    local Answer = getAnswer[game:GetService("Players").LocalPlayer.PlayerGui.Main.Question.Bg.QuestionTxt.Text]
+    local Answer = getAnswer[Gui.Question.Bg.QuestionTxt.Text]
     if Answer then
-        wait( 6 + (string.len(answer) / 4) )
+        wait( 6 + (string.len(Answer) / 4) )
         game:GetService("ReplicatedStorage").Common.Library.Network.RemoteFunction:InvokeServer("S_System_SubmitAnswer", {Answer})
     end
 end
