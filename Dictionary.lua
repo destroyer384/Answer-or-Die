@@ -1,4 +1,4 @@
-return [[ {
+return {
   ["Name a popular vegetable"] = "Sweet potato",
   ["Name something you eat with"] = "Serving spoon",
   ["Name a popular Superhero"] = "Captain america",
@@ -35,4 +35,4 @@ return [[ {
   ["Name an animal that can fly"] = "Hummingbird",
   ["What is something you eat with your hands"] = "Chicken nuggets",
   ["What is something you can sit on"] = "Rocking chair",
-} ]]
+}
