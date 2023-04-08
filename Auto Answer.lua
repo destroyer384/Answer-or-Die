@@ -31,7 +31,7 @@ local getAnswer = {
     ["Name a famous Roblox Youtuber"] = "inquisitormaster",
     ["Name one of the world's most popular car colors"] = "silver",
     ["Name an animal that walks slowly"] = "caterpillar",
-    ["Name any part of your head"] = "forehead",
+    ["Name any part of the head"] = "forehead",
     ["Name a popular electronic device"] = "electricguitar",
     ["Name something you find on pizza"] = "mozzarellacheese",
     ["Name one of Santa's nine reindeers that show up in Christmas"] = "rudolph",
@@ -157,6 +157,8 @@ local function onQuestionUpdate()
     if Answer then
         wait( 6 + (string.len(Answer) / 4) )
         game:GetService("ReplicatedStorage").Common.Library.Network.RemoteFunction:InvokeServer("S_System_SubmitAnswer", {Answer})
+    else
+        print("Cant find the answer to this question:", CurrentQuestion)
     end
 end
 
