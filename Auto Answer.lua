@@ -8,7 +8,7 @@ local Towers = Workspace["__MAP"].Rooms -- 8 towers
 -- Define a dictionary with questions and answers
 local getAnswer = {
     ["Name a popular vegetable"] = "Sweetpotato",
-    ["Name something you eat with"] = "Servingspoon",
+    ["Name something you eat with"] = "Icecreamspoon",
     ["Name a popular Superhero"] = "Captainamerica",
     ["Name any month that has 31 days"] = "December",
     ["Name one of the world's hottest countries"] = "UnitedArabEmirates",
@@ -21,7 +21,7 @@ local getAnswer = {
     ["Name one of the four seasons"] = "Winter",
     ["Name something you do at school"] = "Physicaleducation",
     ["Name any natural hair color"] = "Brunette",
-    ["Name any capital city in Europe"] = "Vaticancity",
+    ["Name any capital city in Europe"] = "Andorralavella",
     ["Name a country that starts with the letter A"] = "Antiguaandbarabuda",
     ["Name one of the world's coldest countries"] = "United StatesofAmerica",
     ["Name one of the seven colors of the rainbow"] = "Purple",
@@ -31,16 +31,16 @@ local getAnswer = {
     ["Name an animal that walks slowly"] = "Caterpillar",
     ["Name any part of your head"] = "Forehead",
     ["Name a popular electronic device"] = "Electricguitar",
-    ["Name something you find on pizza"] = "Mozzarella",
+    ["Name something you find on pizza"] = "Americancheese",
     ["Name one of Santa's nine reindeers that show up in Christmas"] = "Rudolph",
-    ["Name a topping that is usually in a hamburger"] = "Mayonnaise",
+    ["Name a topping that is usually in a hamburger"] = "Americancheese",
     ["Name a musical instrument"] = "Electricguitar",
     ["Name any popular animal that starts with the letter C"] = "Caterpillar",
     ["Name a popular game on Roblox"] = "NaturalDisasterSurvival",
     ["Name a social media app"] = "Facebookmessenger",
     ["Name a famous sport that is played in teams"] = "Americanfootball",
     ["Name one of the fastest animals"] = "Swordfish",
-    ["Name an animal that can fly"] = "Hummingbird",
+    ["Name an animal that can fly"] = "Westernhoneybee",
     ["What is something you eat with your hands"] = "Chickennuggets",
     ["What is something you can sit on"] = "Rockingchair",
     ["undefined"] = "lol"
@@ -100,7 +100,7 @@ local function onBlocksAdded(newBlock)
         -- If new answer is longer than the previous one and mine, then update the longest answer
         if Blocks > MaxLetters and Blocks > MyBlocks then
             MaxLetters = Blocks
-            print("Most blocks:", MaxLetters, "Your blocks:", MyBlocks)
+            print("Most blocks:", MaxLetters, "Your blocks:", MyBlocks, '(' .. getAnswer[Gui.Question.Bg.QuestionTxt.Text] .. ')'"
         end
     end
 end
