@@ -45,16 +45,25 @@ local getAnswer = {
     ["Name an animal that can fly"] = "Westernhoneybee",
     ["What is something you eat with your hands"] = "Chickennuggets",
     ["What is something you can sit on"] = "Rockingchair",
-    ["undefined"] = "lol"
+    ["undefined"] = "lol",
 }
 
-local MyBlocks = string.len(getAnswer[Gui.Question.Bg.QuestionTxt.Text])
+local MyBlocks = 0
 local MaxLetters = 0
-local MaxLettersString = ""
 local MaxLettersIndex = 1
 local EveryAnswer = {}
 local Blocks = 0
 local LastQuestion = "undefined"
+
+local function resetData()
+    if Gui.Question.Bg.QuestionTxt.Text then
+        MyBlocks = string.len(getAnswer[Gui.Question.Bg.QuestionTxt.Text])
+        MaxLetters = 0
+        MaxLettersIndex = 1
+        EveryAnswer = {}
+        Blocks = 0
+    end
+end
 
 local function getOthersAnswers()
     local answers = {}
@@ -83,22 +92,35 @@ local function countDashes(String)
     return Count
 end
 
+local function toInt(String)
+    return tonumber(String)
+end
+
 local function onBlocksAdded(newBlock)
     -- Accept only gains
     if newBlock.Name == "BlockGainTemplate" then
         -- Get name and amount of gained blocks
         local announcementText = newBlock.BlockGainTxt
-        local _, NewBlocks = announcementText.Text:match("(.+) submitted their answer and gained (%d+) blocks.")
-        Blocks = tonumber(NewBlocks) -- Make Blocks match its purpose
+        local Player, LastAnswerBlocks = announcementText.Text:match("(.+) submitted their answer and gained (%d+) blocks.")
+        local success, _ = pcall(toInt, LastAnswerBlocks)
 
-        -- If new answer is longer than the previous one and mine, then update the longest answer
-        if Blocks > MaxLetters and Blocks > MyBlocks then
-            MaxLetters = Blocks
-            print("Most blocks:", MaxLetters, "Your blocks:", MyBlocks, '(' .. getAnswer[Gui.Question.Bg.QuestionTxt.Text] .. ')')
+        if success then
+            LastAnswerBlocks = tonumber(LastAnswerBlocks) -- Make Blocks match its purpose
+
+            -- If new answer is longer than the previous one and mine, then update the longest answer
+            if LastAnswerBlocks > MaxLetters and LastAnswerBlocks > MyBlocks then
+                MaxLetters = LastAnswerBlocks
+                if Gui.Question.Bg.QuestionTxt.Text then
+                    print("Most blocks:", MaxLetters, "Your blocks:", MyBlocks, '(' .. getAnswer[Gui.Question.Bg.QuestionTxt.Text] .. ')')
+                end
+            end
+        else
+            print("2x blocks detected.")
         end
     end
 end
 
+-- Get the index of a string with the longest answer
 local function parseLongest()
     -- Get the letters
     EveryAnswer = getOthersAnswers()
@@ -106,32 +128,31 @@ local function parseLongest()
     for i = 1, #EveryAnswer do
         -- When longest found
         if countDashes(EveryAnswer[i]) == MaxLetters then
-            -- Set the answers
-            MaxLettersString = EveryAnswer[i]
+            -- Get the index
             MaxLettersIndex = i
             break
          end
     end
 end
 
+
 local function getTheAnswer()
     -- Print raw answer
-    if MaxLettersString and MaxLetters then
-        print("Question:", LastQuestion)
-        print("Got the answer:", string.sub(getOthersAnswers()[MaxLettersIndex], 1, MaxLetters))
-    else
-        print("omg no")
-    end
+    print("     Question:", LastQuestion)
+    print("     Got the answer:", string.sub(getOthersAnswers()[MaxLettersIndex], 1, MaxLetters))
 end
 
+
+-- When answers sumbitted and all blocks appeared, find the longest answer
 local function onTimerUpdate()
-    -- When answers sumbitted and all blocks appeared, find the longest answer
     if Gui.Question.Bg.TimerTxt.Text == "00:01" then
         parseLongest()
         LastQuestion = Gui.Question.Bg.QuestionTxt.Text
     end
 end
 
+-- If somebody beat me in the previous round, get the answer he entered
+-- Reset variables from the prev. round and submit my answer
 local function onQuestionUpdate()
     if MyBlocks < MaxLetters then
         getTheAnswer()
@@ -139,11 +160,7 @@ local function onQuestionUpdate()
     wait(0.25)
 
     -- Reset data from previous question
-    MyBlocks = string.len(getAnswer[Gui.Question.Bg.QuestionTxt.Text])
-    Blocks = 0
-    MaxLetters = 0
-    MaxLettersString = ""
-    MaxLettersIndex = 0
+    pcall(resetData)
 
     local Answer = getAnswer[Gui.Question.Bg.QuestionTxt.Text]
     if Answer then
@@ -151,6 +168,8 @@ local function onQuestionUpdate()
         game:GetService("ReplicatedStorage").Common.Library.Network.RemoteFunction:InvokeServer("S_System_SubmitAnswer", {Answer})
     end
 end
+
+onQuestionUpdate()
 
 Gui.Question.Bg.QuestionTxt:GetPropertyChangedSignal("Text"):Connect(onQuestionUpdate)
 Gui.Question.Bg.TimerTxt:GetPropertyChangedSignal("Text"):Connect(onTimerUpdate)
