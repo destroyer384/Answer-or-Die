@@ -25,7 +25,7 @@ local getAnswer = {
     ["Name any natural hair color"] = "brunette",
     ["Name any capital city in Europe"] = "andorralavella",
     ["Name a country that starts with the letter A"] = "antiguaandbarabuda",
-    ["Name one of the world's coldest countries"] = "unitedStatesofAmerica",
+    ["Name one of the world's coldest countries"] = "unitedstatesofamerica",
     ["Name one of the seven colors of the rainbow"] = "purple",
     ["Name a popular fruit"] = "passionfruit",
     ["Name a famous Roblox Youtuber"] = "inquisitormaster",
@@ -124,7 +124,7 @@ end
 
 local function getABetterAnswer()
     local LongestAnswer = string.sub(getOthersAnswers()[MaxAnswerLengthIndex], 1, MaxAnswerLength)
-    wait(string.len(LongestAnswer / 2))
+    wait(string.len(LongestAnswer) / 2)
     -- Print raw answer
     print("     Question:", LastQuestion)
     print("     Got the answer:", LongestAnswer)
