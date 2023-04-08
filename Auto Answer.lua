@@ -1,3 +1,5 @@
+print("Loaded")
+
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -86,21 +88,13 @@ local function onBlocksAdded(newBlock)
     if newBlock.Name == "BlockGainTemplate" then
         -- Get name and amount of gained blocks
         local announcementText = newBlock.BlockGainTxt
-        local Player, NewBlocks = announcementText.Text:match("(.+) submitted their answer and gained (%d+) blocks.")
+        local _, NewBlocks = announcementText.Text:match("(.+) submitted their answer and gained (%d+) blocks.")
         Blocks = tonumber(NewBlocks) -- Make Blocks match its purpose
-
-        -- Get rid of dislay names
-        for _, p in ipairs(Players:GetPlayers()) do
-            if p.DisplayName == Player then
-                Player = p
-                break
-            end
-        end
 
         -- If new answer is longer than the previous one and mine, then update the longest answer
         if Blocks > MaxLetters and Blocks > MyBlocks then
             MaxLetters = Blocks
-            print("Most blocks:", MaxLetters, "Your blocks:", MyBlocks, '(' .. getAnswer[Gui.Question.Bg.QuestionTxt.Text] .. ')'"
+            print("Most blocks:", MaxLetters, "Your blocks:", MyBlocks, '(' .. getAnswer[Gui.Question.Bg.QuestionTxt.Text] .. ')')
         end
     end
 end
