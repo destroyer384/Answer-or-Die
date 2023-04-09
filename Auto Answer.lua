@@ -7,7 +7,7 @@ local Gui = LocalPlayer.PlayerGui.Main
 local Question = Gui.Question.Bg.QuestionTxt
 local Towers = Workspace["__MAP"].Rooms -- 8 towers
 
-local LetOthersWin = false
+local LetOthersWin = _G.LetOthersWin or false
 
 -- Define a dictionary with questions and answers ()
 local getAnswer = {
@@ -51,7 +51,8 @@ local getAnswer = {
 }
 
 if LetOthersWin then
-     getAnswer["Name something you eat with"] = "servingspoon",
+    getAnswer["Name something you eat with"] = "servingspoon"
+    print("Letting others win.")
 end
 
 local MyAnswerLength = 2
