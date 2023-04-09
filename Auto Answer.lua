@@ -1,4 +1,6 @@
-print("Loaded")
+local LetOthersWin = _G.LetOthersWin or false
+
+print("Auto answer is ready.")
 if LetOthersWin then
     print("Letting others win.")
 end
@@ -9,8 +11,6 @@ local LocalPlayer = Players.LocalPlayer
 local Gui = LocalPlayer.PlayerGui.Main
 local Question = Gui.Question.Bg.QuestionTxt
 local Towers = Workspace["__MAP"].Rooms -- 8 towers
-
-local LetOthersWin = _G.LetOthersWin or false
 
 -- Define a dictionary with questions and answers ()
 local getAnswer = {
