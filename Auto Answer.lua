@@ -42,10 +42,10 @@ local getAnswer = {
     ["Name an animal that can fly"] = "westernhoneybee",                            -- Best answer
     ["Name a popular Superhero"] = "captainamerica",                                -- 
     ["Name a musical instrument"] = "electricguitar",                               -- 
-    ["Name one of the world's hottest countries"] = "unitedarabemirates",           -- 
+    ["Name one of the world's hottest countries"] = "democraticrepublicofthecongo", -- ?
     ["Name a famous Roblox Youtuber"] = "inquisitormaster",                         -- 
     ["Name one of the world's most popular car colors"] = "silver",                 -- 
-    ["Name a popular electronic device"] = "playstationcontroller",                        -- 
+    ["Name a popular electronic device"] = "playstationcontroller",                 -- ?
     ["Name one of the seven colors of the rainbow"] = "purple",                     -- 
     ["undefined"] = string.rep("L", 100),
 }
