@@ -128,7 +128,7 @@ local function getABetterAnswer()
     -- Print raw answer
     print("     Question:", LastQuestion)
     print("     Got the answer:", LongestAnswer)
-    getAnswer[LastQuestion] = string.sub(EveryAnswer[MaxAnswerLengthIndex], 1, MaxAnswerLength)
+    -- getAnswer[LastQuestion] = LongestAnswer
     print("")
 end
 
