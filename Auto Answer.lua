@@ -19,7 +19,7 @@ local Question = Gui.Question.Bg.QuestionTxt
 local Towers = Workspace["__MAP"].Rooms -- 8 towers
 
 
--- Define a dictionary with questions and answers ()
+-- Define a dictionary with questions and answers (32/36 are best)
 local getAnswer = {
     ["Name a popular vegetable"] = "sweetpotato",                                   -- Best answer
     ["Name something you eat with"] = "icecreamspoon",                              -- Best answer
@@ -172,12 +172,14 @@ local function getABetterAnswer()
                         ["color"] = tonumber(0x03fc45),
                         ["fields"] = {
                             {
-                                ["author"] = "Answer or Die",
                                 ["name"] = "Question: " .. LastQuestion ,
                                 ["value"] = "Old answer: " .. getAnswer[LastQuestion] .. "(" .. string.len(getAnswer[LastQuestion]) .. ")" .. "\nNew: " .. LongestAnswer .. "(" .. LongestAnswer .. ")",
                                 ["inline"] = true,
                             }
-                        }
+                        },
+                        ["footer"] = {
+                            ["text"] = "Answer or die"
+                        },
                     }
                 }
             })
