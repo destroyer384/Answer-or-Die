@@ -172,6 +172,7 @@ local function getABetterAnswer()
                         ["color"] = tonumber(0x03fc45),
                         ["fields"] = {
                             {
+                                ["author"] = "Answer or Die",
                                 ["name"] = "Question: " .. LastQuestion ,
                                 ["value"] = "Old answer: " .. getAnswer[LastQuestion] .. "(" .. string.len(getAnswer[LastQuestion]) .. ")" .. "\nNew: " .. LongestAnswer .. "(" .. LongestAnswer .. ")",
                                 ["inline"] = true,
