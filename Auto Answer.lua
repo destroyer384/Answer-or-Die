@@ -170,8 +170,10 @@ local function onQuestionUpdate()
     if Answer then
         wait( 6 + (string.len(Answer) / 4) )
         game:GetService("ReplicatedStorage").Common.Library.Network.RemoteFunction:InvokeServer("S_System_SubmitAnswer", {Answer})
+    elseif CurrentQuestion == "" then
+        -- wait for the next question
     else
-        print("Cant find the answer to this question:", CurrentQuestion)
+        print("Cant find the answer to this question:", '"' .. CurrentQuestion .. '"')
     end
 end
 
