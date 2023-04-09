@@ -51,7 +51,7 @@ local getAnswer = {
 }
 
 if LetOthersWin then
-     getAnswer "Name something you eat with"] = "servingspoon",
+     getAnswer["Name something you eat with"] = "servingspoon",
 end
 
 local MyAnswerLength = 2
