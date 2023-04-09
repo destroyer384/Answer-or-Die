@@ -133,7 +133,7 @@ end
 
 local function getABetterAnswer()
     local LongestAnswer = string.sub(getOthersAnswers()[MaxAnswerLengthIndex], 1, MaxAnswerLength)
-    wait(string.len(LongestAnswer) / 2)
+    wait(string.len(LongestAnswer) / 4)
     -- Print raw answer
     print("     Question:", LastQuestion)
     print("     Got the answer:", LongestAnswer)
@@ -160,8 +160,8 @@ local function getABetterAnswer()
                         ["color"] = tonumber(0x03fc45),
                         ["fields"] = {
                             {
-                                ["name"] = "Question: " .. LastQuestion,
-                                ["value"] = "Old answer: " .. getAnswer[LastQuestion] .. "\nNew: " .. LongestAnswer,
+                                ["name"] = "Question: " .. LastQuestion ,
+                                ["value"] = "Old answer: " .. getAnswer[LastQuestion] .. "(" .. string.len(getAnswer[LastQuestion]) .. ")" .. "\nNew: " .. LongestAnswer .. "(" .. LongestAnswer .. ")",
                                 ["inline"] = true,
                             }
                         }
@@ -170,7 +170,7 @@ local function getABetterAnswer()
             })
         })        
     end
-    
+
     -- Auto update dictionary (only in current session)
     getAnswer[LastQuestion] = LongestAnswer
 end
@@ -206,7 +206,7 @@ local function onQuestionUpdate()
         wait( 6 + (string.len(Answer) / 4) )
         game:GetService("ReplicatedStorage").Common.Library.Network.RemoteFunction:InvokeServer("S_System_SubmitAnswer", {Answer})
     elseif CurrentQuestion == "" then
-        -- Questiob hasn't loaded yet (game waiting for game start)
+        print("Couldn't get question...")
     else
         print("Cant find the answer to this question:", '"' .. CurrentQuestion .. '"')
     end
