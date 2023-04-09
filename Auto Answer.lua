@@ -206,7 +206,7 @@ local function onQuestionUpdate()
         wait( 6 + (string.len(Answer) / 4) )
         game:GetService("ReplicatedStorage").Common.Library.Network.RemoteFunction:InvokeServer("S_System_SubmitAnswer", {Answer})
     elseif CurrentQuestion == "" then
-        print("Couldn't get question...")
+        -- Questiob hasn't loaded yet (game waiting for game start)
     else
         print("Cant find the answer to this question:", '"' .. CurrentQuestion .. '"')
     end
