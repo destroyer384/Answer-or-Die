@@ -190,7 +190,8 @@ end
 
 -- When answers sumbitted and all blocks appeared, find the longest answer
 local function onTimerUpdate()
-    if Gui.Question.Bg.TimerTxt.Text == "00:01" then
+    if Gui.Question.Bg.TimerTxt.Text == "00:00" then
+        wait(2.8)
         parseLongest()
         LastQuestion = CurrentQuestion
     end
@@ -200,6 +201,7 @@ end
 -- If somebody beat me in the previous round, get the answer he entered
 -- Reset variables from the prev. round and submit my answer
 local function onQuestionUpdate()
+    -- Decide should or not give others answers
     if MyAnswerLength < MaxAnswerLength then
         getABetterAnswer()
     end
@@ -207,7 +209,6 @@ local function onQuestionUpdate()
 
     -- Reset data from previous question
     pcall(resetData)
-    print(CurrentQuestion)
     
     local Answer = getAnswer[CurrentQuestion]
     if Answer then
@@ -220,7 +221,13 @@ local function onQuestionUpdate()
     end
 end
 
-onQuestionUpdate()
+resetData()
+
+-- If executed during game, answer the question
+if Gui.Intermission.Bg.TimerTxt.Text == "00:00" then
+    wait(2)
+    onQuestionUpdate()
+end
 
 Gui.Question.Bg.QuestionTxt:GetPropertyChangedSignal("Text"):Connect(onQuestionUpdate)
 Gui.Question.Bg.TimerTxt:GetPropertyChangedSignal("Text"):Connect(onTimerUpdate)
