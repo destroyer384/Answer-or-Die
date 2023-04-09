@@ -144,7 +144,7 @@ end
 local function onTimerUpdate()
     if Gui.Question.Bg.TimerTxt.Text == "00:01" then
         parseLongest()
-        
+        LastQuestion = CurrentQuestion
     end
 end
 
@@ -157,7 +157,6 @@ local function onQuestionUpdate()
     end
     wait(0.25)
 
-    LastQuestion = CurrentQuestion
     -- Reset data from previous question
     pcall(resetData)
     
