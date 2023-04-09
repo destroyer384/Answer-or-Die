@@ -43,14 +43,14 @@ local getAnswer = {
     ["Name a country that starts with the letter A"] = "antiguaandbarabuda",        -- Best answer
     ["Name something you do in your sleep"] = "nightmare",                          -- Best answer
     ["Name an animal that can fly"] = "westernhoneybee",                            -- Best answer
-    ["Name a popular electronic device"] = "playstationcontroller",                 -- ?
-    ["Name a musical instrument"] = "orchestralbells",                              -- ?
-    ["Name one of the world's hottest countries"] = "democraticrepublicofthecongo", -- ?
+    ["Name a popular electronic device"] = "playstationcontroller",                 -- Best answer
+    ["Name a musical instrument"] = "orchestralbells",                              -- Best answer
+    ["Name one of the world's hottest countries"] = "democraticrepublicofthecongo", -- Best answer
     ["Name a famous Roblox Youtuber"] = "inquisitormaster",                         -- 
     ["Name one of the world's most popular car colors"] = "silver",                 -- 
     ["Name a popular Superhero"] = "captainamerica",                                --
     ["Name one of the seven colors of the rainbow"] = "purple",                     -- 
-    ["undefined"] = string.rep("L", 100),
+    ["undefined"] = "lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll",
 }
 
 
@@ -171,7 +171,7 @@ local function onQuestionUpdate()
         wait( 6 + (string.len(Answer) / 4) )
         game:GetService("ReplicatedStorage").Common.Library.Network.RemoteFunction:InvokeServer("S_System_SubmitAnswer", {Answer})
     elseif CurrentQuestion == "" then
-        -- wait for the next question
+        print("Couldn't get question...")
     else
         print("Cant find the answer to this question:", '"' .. CurrentQuestion .. '"')
     end
