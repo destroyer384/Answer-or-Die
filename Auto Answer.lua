@@ -1,4 +1,7 @@
 print("Loaded")
+if LetOthersWin then
+    print("Letting others win.")
+end
 
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
@@ -41,7 +44,7 @@ local getAnswer = {
     ["Name something you do in your sleep"] = "nightmare",                          -- Best answer
     ["Name an animal that can fly"] = "westernhoneybee",                            -- Best answer
     ["Name a popular Superhero"] = "captainamerica",                                -- 
-    ["Name a musical instrument"] = "orchestralbells",                              -- 
+    ["Name a musical instrument"] = "orchestralbells",                              -- ?
     ["Name one of the world's hottest countries"] = "democraticrepublicofthecongo", -- ?
     ["Name a famous Roblox Youtuber"] = "inquisitormaster",                         -- 
     ["Name one of the world's most popular car colors"] = "silver",                 -- 
@@ -50,10 +53,7 @@ local getAnswer = {
     ["undefined"] = string.rep("L", 100),
 }
 
-if LetOthersWin then
-    getAnswer["Name something you eat with"] = "servingspoon"
-    print("Letting others win.")
-end
+
 
 local MyAnswerLength = 2
 local MaxAnswerLength = 1
@@ -135,7 +135,7 @@ local function getABetterAnswer()
     -- Print raw answer
     print("     Question:", LastQuestion)
     print("     Got the answer:", LongestAnswer)
-    -- getAnswer[LastQuestion] = LongestAnswer
+    getAnswer[LastQuestion] = LongestAnswer
     print("")
 end
 
@@ -159,7 +159,11 @@ local function onQuestionUpdate()
 
     -- Reset data from previous question
     pcall(resetData)
-
+    
+    if LetOthersWin then
+        getAnswer["Name something you eat with"] = "servingspoon"
+    end
+    
     local Answer = getAnswer[CurrentQuestion]
     if Answer then
         wait( 6 + (string.len(Answer) / 4) )
