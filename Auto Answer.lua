@@ -4,7 +4,12 @@ local Webhook_URL = _G.Webhook_URL or false
 print("Auto answer is ready.")
 if LettingOthersWin then
     print("Letting others win.")
+    StandarAnswerDelay = 5
+else
+    print("Using full power")
+    StandarAnswerDelay = 3
 end
+
 
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
@@ -206,7 +211,7 @@ local function onQuestionUpdate()
     
     local Answer = getAnswer[CurrentQuestion]
     if Answer then
-        wait( 6 + (string.len(Answer) / 4) )
+        wait( 4 + StandarAnswerDelay + (string.len(Answer) / 5) )
         game:GetService("ReplicatedStorage").Common.Library.Network.RemoteFunction:InvokeServer("S_System_SubmitAnswer", {Answer})
     elseif CurrentQuestion == "" then
         print("Couldn't get question...")
