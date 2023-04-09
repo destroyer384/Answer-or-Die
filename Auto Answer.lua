@@ -1,4 +1,5 @@
 local LetOthersWin = _G.LetOthersWin or false
+local Webhook_URL = _G.Webhook_URL or false
 
 print("Auto answer is ready.")
 if LetOthersWin then
@@ -11,6 +12,7 @@ local LocalPlayer = Players.LocalPlayer
 local Gui = LocalPlayer.PlayerGui.Main
 local Question = Gui.Question.Bg.QuestionTxt
 local Towers = Workspace["__MAP"].Rooms -- 8 towers
+
 
 -- Define a dictionary with questions and answers ()
 local getAnswer = {
@@ -135,8 +137,42 @@ local function getABetterAnswer()
     -- Print raw answer
     print("     Question:", LastQuestion)
     print("     Got the answer:", LongestAnswer)
-    getAnswer[LastQuestion] = LongestAnswer
+    
     print("")
+
+    -- Send it to discord if it is possible
+    if syn and Webhook_URL then
+        local HttpService = game:GetService("HttpService")
+
+        local responce = syn.request({
+            Url = Webhook_URL,
+            Method = "POST",
+            Headers = {
+                ["Content-Type"] = "application/json"
+            },
+            Body = HttpService:JSONEncode({
+                ["content"] = "",
+                ["embeds"] = {
+                    {
+                        ["title"] = "A better answer has been found.",
+                        ["description"] = "",
+                        ["type"] = "rich",
+                        ["color"] = tonumber(0x03fc45),
+                        ["fields"] = {
+                            {
+                                ["name"] = "Question: " .. LastQuestion,
+                                ["value"] = "Old answer: " .. getAnswer[LastQuestion] .. "\nNew: " .. LongestAnswer,
+                                ["inline"] = true,
+                            }
+                        }
+                    }
+                }
+            })
+        })        
+    end
+    
+    -- Auto update dictionary (only in current session)
+    getAnswer[LastQuestion] = LongestAnswer
 end
 
 
