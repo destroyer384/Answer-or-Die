@@ -43,12 +43,12 @@ local getAnswer = {
     ["Name a country that starts with the letter A"] = "antiguaandbarabuda",        -- Best answer
     ["Name something you do in your sleep"] = "nightmare",                          -- Best answer
     ["Name an animal that can fly"] = "westernhoneybee",                            -- Best answer
-    ["Name a popular Superhero"] = "captainamerica",                                -- 
+    ["Name a popular electronic device"] = "playstationcontroller",                 -- ?
     ["Name a musical instrument"] = "orchestralbells",                              -- ?
     ["Name one of the world's hottest countries"] = "democraticrepublicofthecongo", -- ?
     ["Name a famous Roblox Youtuber"] = "inquisitormaster",                         -- 
     ["Name one of the world's most popular car colors"] = "silver",                 -- 
-    ["Name a popular electronic device"] = "playstationcontroller",                 -- ?
+    ["Name a popular Superhero"] = "captainamerica",                                --
     ["Name one of the seven colors of the rainbow"] = "purple",                     -- 
     ["undefined"] = string.rep("L", 100),
 }
@@ -144,7 +144,7 @@ end
 local function onTimerUpdate()
     if Gui.Question.Bg.TimerTxt.Text == "00:01" then
         parseLongest()
-        LastQuestion = CurrentQuestion
+        
     end
 end
 
@@ -157,9 +157,11 @@ local function onQuestionUpdate()
     end
     wait(0.25)
 
+    LastQuestion = CurrentQuestion
     -- Reset data from previous question
     pcall(resetData)
     
+    -- Special case to prevent winning
     if LetOthersWin then
         getAnswer["Name something you eat with"] = "servingspoon"
     end
