@@ -45,7 +45,7 @@ local getAnswer = {
     ["Name one of the world's hottest countries"] = "unitedarabemirates",           -- 
     ["Name a famous Roblox Youtuber"] = "inquisitormaster",                         -- 
     ["Name one of the world's most popular car colors"] = "silver",                 -- 
-    ["Name a popular electronic device"] = "electricguitar",                        -- 
+    ["Name a popular electronic device"] = "playstationcontroller",                        -- 
     ["Name one of the seven colors of the rainbow"] = "purple",                     -- 
     ["undefined"] = string.rep("L", 100),
 }
