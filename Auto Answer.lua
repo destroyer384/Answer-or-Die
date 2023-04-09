@@ -1,8 +1,8 @@
-local LetOthersWin = _G.LetOthersWin or false
+local LettingOthersWin = _G.LetOthersWin or false
 local Webhook_URL = _G.Webhook_URL or false
 
 print("Auto answer is ready.")
-if LetOthersWin then
+if LettingOthersWin then
     print("Letting others win.")
 end
 
@@ -70,6 +70,9 @@ local function resetData()
     MaxAnswerLength = 1
     MaxAnswerLengthIndex = 1
     EveryAnswer = {}
+    if LettingOthersWin then
+        getAnswer["Name something you eat with"] = "servingspoon"
+    end
 end
 
 
@@ -133,6 +136,10 @@ end
 
 local function getABetterAnswer()
     local LongestAnswer = string.sub(getOthersAnswers()[MaxAnswerLengthIndex], 1, MaxAnswerLength)
+    if LongestAnswer == "" then
+        LongestAnswer = "Game reset before("
+    end
+    
     wait(string.len(LongestAnswer) / 4)
     -- Print raw answer
     print("     Question:", LastQuestion)
@@ -141,7 +148,7 @@ local function getABetterAnswer()
     print("")
 
     -- Send it to discord if it is possible
-    if syn and Webhook_URL then
+    if syn and Webhook_URL and not LettingOthersWin then
         local HttpService = game:GetService("HttpService")
 
         local responce = syn.request({
@@ -195,11 +202,7 @@ local function onQuestionUpdate()
 
     -- Reset data from previous question
     pcall(resetData)
-    
-    -- Special case to prevent winning
-    if LetOthersWin then
-        getAnswer["Name something you eat with"] = "servingspoon"
-    end
+    print(CurrentQuestion)
     
     local Answer = getAnswer[CurrentQuestion]
     if Answer then
