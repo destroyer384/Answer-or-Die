@@ -7,6 +7,8 @@ local Gui = LocalPlayer.PlayerGui.Main
 local Question = Gui.Question.Bg.QuestionTxt
 local Towers = Workspace["__MAP"].Rooms -- 8 towers
 
+local LetOthersWin = false
+
 -- Define a dictionary with questions and answers ()
 local getAnswer = {
     ["Name a popular vegetable"] = "sweetpotato",                                   -- Best answer
@@ -47,6 +49,10 @@ local getAnswer = {
     ["Name one of the seven colors of the rainbow"] = "purple",                     -- 
     ["undefined"] = string.rep("L", 100),
 }
+
+if LetOthersWin then
+     getAnswer "Name something you eat with"] = "servingspoon",
+end
 
 local MyAnswerLength = 2
 local MaxAnswerLength = 1
