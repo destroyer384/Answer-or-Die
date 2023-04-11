@@ -40,16 +40,16 @@ local Answers = {
     ["Name one of the fastest animals"] = "Sword fish",                                 -- Best answer
     ["What is something you eat with your hands"] = "Chicken nuggets",                  -- Best answer
     ["What is something you can sit on"] = "Rocking Chair",                             -- Best answer
-    ["Name a country that starts with the letter A"] = "Antigua and Barabuda",          -- Best answer
+    ["Name a country that starts with the letter A"] = "Antigua and Barbuda",           -- Best answer
     ["Name something you do in your sleep"] = "Nightmare",                              -- Best answer
     ["Name an animal that can fly"] = "Western Honey Bee",                              -- Best answer
     ["Name a popular electronic device"] = "Play Station Controller",                   -- Best answer
     ["Name a musical instrument"] = "Orchestral Bells",                                 -- Best answer
     ["Name one of the world's hottest countries"] = "Democratic Republic of the Congo", -- Best answer
-    ["Name a famous Roblox Youtuber"] = "Inquisitormaster",                             -- 
+    ["Name one of the seven colors of the rainbow"] = "Purple",                         -- Best answer
     ["Name one of the world's most popular car colors"] = "Silver",                     -- 
     ["Name a popular Superhero"] = "Captain America",                                   --
-    ["Name one of the seven colors of the rainbow"] = "Purple",                         -- 
+    ["Name a famous Roblox Youtuber"] = "Inquisitormaster",                             --
 }
 
 if next(Custom_Dictionary) ~= nil then
@@ -63,8 +63,8 @@ else
 end
 
 
-local function AnswerTheQuestion(Answer)
-    game:GetService("ReplicatedStorage").Common.Library.Network.RemoteFunction:InvokeServer("S_System_SubmitAnswer", {Answer})
+local function AnswerTheQuestion(Question)
+    game:GetService("ReplicatedStorage").Common.Library.Network.RemoteFunction:InvokeServer("S_System_SubmitAnswer", {Answers[Question]})
 end
 
 
@@ -74,7 +74,7 @@ local function onQuestionUpdate()
     local Answer = Answers[TheQuestion]
     if Answer then
         -- After 6 seconds, qeustion appears on the screen
-        wait(6 + CustomAnswerDelay + (string.len(Answer) / LPS))
+        wait(6 + Custom_Answer_Delay + (string.len(Answer) / LPS))
 
         AnswerTheQuestion(Answer)
     elseif TheQuestion == "" then
