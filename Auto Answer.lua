@@ -187,7 +187,7 @@ local function getABetterAnswer()
     end
 
     -- Auto update dictionary (only in current session)
-    getAnswer[LastQuestion] = LongestAnswer
+    --getAnswer[LastQuestion] = LongestAnswer
 end
 
 
