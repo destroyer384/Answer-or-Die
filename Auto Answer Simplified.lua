@@ -76,7 +76,7 @@ local function onQuestionUpdate()
         -- After 6 seconds, qeustion appears on the screen
         wait(6 + Custom_Answer_Delay + (string.len(Answer) / LPS))
 
-        AnswerTheQuestion(Answer)
+        AnswerTheQuestion(TheQuestion)
     elseif TheQuestion == "" then
         print("Couldn't get question...")
     else
