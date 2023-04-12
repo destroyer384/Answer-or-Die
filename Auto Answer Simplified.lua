@@ -159,3 +159,5 @@ local function onQuestionUpdate()
 end
 
 CurrentQuestion:GetPropertyChangedSignal("Text"):Connect(onQuestionUpdate)
+
+Rayfield:LoadConfiguration()
