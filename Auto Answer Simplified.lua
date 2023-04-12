@@ -138,7 +138,7 @@ local DelayAnswer = Tab:CreateSlider({
 
 
 local CreditsTab = Window:CreateTab("Credits", 4483362458)
-local DiscordName = CreditsTab:CreateLabel("Discord: super_destroyer384#2610")
+local DiscordName = CreditsTab:CreateLabel("Discord: discord.gg/eH6uYFBc")
 
 
 local function onQuestionUpdate()
