@@ -1,7 +1,8 @@
 local Custom_Dictionary = _G.Custom_Dictionary or {} -- Make sure to enter data correctly f.e. - {["Name something you eat with"] = "Serving spoon",}
 
 local Workspace = game:GetService("Workspace")
-local Gui = game:GetService("Players").LocalPlayer.PlayerGui.Main
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Gui = PlayerGui.Main
 local Answer_Delay = 3
 local LPS = 8  -- Letters per second
 local AutoAnswering = false
