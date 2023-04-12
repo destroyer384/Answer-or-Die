@@ -74,8 +74,8 @@ local Window = Rayfield:CreateWindow({
       FileName = "AnswerOrDie"
    },
    Discord = {
-      Enabled = false,
-      Invite = "noinvitelink",
+      Enabled = true,
+      Invite = "discord.gg/eH6uYFBc",
       RememberJoins = true
    },
    KeySystem = false,
