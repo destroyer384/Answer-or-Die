@@ -1,7 +1,7 @@
 local Custom_Dictionary = _G.Custom_Dictionary or {} -- Make sure to enter data correctly f.e. - {["Name something you eat with"] = "Serving spoon",}
 
 local Workspace = game:GetService("Workspace")
-local Gui = game:GetService("Players").LocalPlayer.PlayerGui.Main
+local CurrentQuestion = game:GetService("Players").LocalPlayer.PlayerGui.Main.Question.Bg.QuestionTxt
 local Answer_Delay = 3
 local LPS = 8  -- Letters per second
 local AutoAnswering = false
@@ -94,12 +94,12 @@ local Window = Rayfield:CreateWindow({
 
 local Tab = Window:CreateTab("Auto Answer", 4483362458)
 
-local Label = Tab:CreateLabel("Answer for current question: " .. Answers[Gui.Question.Bg.QuestionTxt.Text])
+local Label = Tab:CreateLabel("Answer for current question: " .. Answers[CurrentQuestion.Text])
 
 local Button = Tab:CreateButton({
     Name = "Answer the question",
     Callback = function()
-        AnswerTheQuestion(Gui.Question.Bg.QuestionTxt.Text)
+        AnswerTheQuestion(CurrentQuestion.Text)
     end,
 })
 
@@ -109,6 +109,7 @@ local Toggle = Tab:CreateToggle({
     Flag = "Auto answer",
     Callback = function(Value)
         AutoAnswering = Value
+        AnswerTheQuestion(CurrentQuestion.Text)
     end,
 })
 
@@ -144,23 +145,20 @@ local DiscordName = CreditsTab:CreateLabel("Discord: super_destroyer384#2610")
 
 local function onQuestionUpdate()
     if AutoAnswering then
-        TheQuestion = Gui.Question.Bg.QuestionTxt.Text
+        TheQuestion = CurrentQuestion.Text
 
         local Answer = Answers[TheQuestion]
         if Answer then
-            Label:Set("Answer for current question: " .. Answers[Gui.Question.Bg.QuestionTxt.Text])
+            Label:Set("Answer for current question: " .. Answers[CurrentQuestion.Text])
 
             -- After 6 seconds, qeustion appears on the screen
             wait(6 + Answer_Delay + (string.len(Answer) / LPS))
             AnswerTheQuestion(TheQuestion)
-        elseif TheQuestion == "" then
-            print("Couldn't get question...")
         else
             print("Cant find the answer to this question:", '"' .. TheQuestion .. '"')
         end
     end
 end
 
-AnswerTheQuestion(Gui.Question.Bg.QuestionTxt.Text)
 
-Gui.Question.Bg.QuestionTxt:GetPropertyChangedSignal("Text"):Connect(onQuestionUpdate)
+CurrentQuestion:GetPropertyChangedSignal("Text"):Connect(onQuestionUpdate)
