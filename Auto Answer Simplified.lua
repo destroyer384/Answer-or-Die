@@ -3,7 +3,7 @@ local Custom_Dictionary = _G.Custom_Dictionary or {} -- Make sure to enter data 
 local Workspace = game:GetService("Workspace")
 local CurrentQuestion = game:GetService("Players").LocalPlayer.PlayerGui.Main.Question.Bg.QuestionTxt
 local Answer_Delay = 3
-local LPS = 8  -- Letters per second
+local LPS = 4  -- Letters per second
 local AutoAnswering = false
 
 
@@ -38,7 +38,7 @@ local Answers = {
     ["Name a country that starts with the letter A"] = "Antigua and Barbuda",           -- Best answer
     ["Name something you do in your sleep"] = "Nightmare",                              -- Best answer
     ["Name an animal that can fly"] = "Western Honey Bee",                              -- Best answer
-    ["Name a popular electronic device"] = "Play Station Controller",                   -- Best answer
+    ["Name a popular electronic device"] = "Playstation Controller",                    -- Best answer
     ["Name a musical instrument"] = "Orchestral Bells",                                 -- Best answer
     ["Name one of the world's hottest countries"] = "Democratic Republic of the Congo", -- Best answer
     ["Name one of the seven colors of the rainbow"] = "Purple",                         -- Best answer
@@ -153,11 +153,9 @@ local function onQuestionUpdate()
             wait(6 + Answer_Delay + (string.len(Answer) / LPS))
             AnswerTheQuestion(TheQuestion)
         else
-            print("Cant find the answer to this question:", '"' .. TheQuestion .. '"')
+            print("Couldn't find the answer to this question:", '"' .. TheQuestion .. '"')
         end
     end
 end
-
-
 
 CurrentQuestion:GetPropertyChangedSignal("Text"):Connect(onQuestionUpdate)
