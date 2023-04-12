@@ -142,12 +142,12 @@ local DiscordName = CreditsTab:CreateLabel("Discord: discord.gg/eH6uYFBc")
 
 
 local function onQuestionUpdate()
+    TheQuestion = CurrentQuestion.Text
+    
     local Answer = Answers[TheQuestion]
-    Label:Set("Answer for current question: " .. Answers[CurrentQuestion.Text])
+    Label:Set("Answer for current question: " .. Answers[TheQuestion])
 
     if AutoAnswering then
-        TheQuestion = CurrentQuestion.Text
-
         if Answer then
             -- After 6 seconds, qeustion appears on the screen
             wait(6 + Answer_Delay + (string.len(Answer) / LPS))
