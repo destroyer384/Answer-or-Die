@@ -53,8 +53,6 @@ if next(Custom_Dictionary) ~= nil then
     for k, v in pairs(Custom_Dictionary) do
         Answers[k] = v
     end
-else
-    print("Using full power")
 end
 
 
