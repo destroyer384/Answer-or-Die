@@ -75,27 +75,27 @@ local Window = Rayfield:CreateWindow({
    LoadingSubtitle = "Answer or Die",
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = nil,
+      FolderName = nil, -- Create a custom folder for your hub/game
       FileName = "AnswerOrDie"
    },
    Discord = {
       Enabled = false,
-      Invite = "noinvitelink",
-      RememberJoins = true
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD.
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
    },
-   KeySystem = false,
+   KeySystem = false, -- Set this to true to use our key system
    KeySettings = {
       Title = "Sirius Hub",
       Subtitle = "Key System",
       Note = "Join the discord (discord.gg/sirius)",
       FileName = "SiriusKey",
       SaveKey = true,
-      GrabKeyFromSite = false,
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
       Key = "Hello"
    }
 })
 
-local Tab = Window:CreateTab("Auto Answer", 4483362458)
+local Tab = Window:CreateTab("Auto Answer", 4483362458) -- Title, Image
 
 local Label = Tab:CreateLabel("Answer for current question: " .. Answers[Gui.Question.Bg.QuestionTxt.Text])
 
@@ -115,15 +115,15 @@ local Toggle = Tab:CreateToggle({
     end,
 })
 
-local WPM = Tab:CreateSlider({
-    Name = "Words per minute",
-    Range = {60, 600},
-    Increment = 30,
-    Suffix = "Words Per Minute",
-    CurrentValue = 300,
-    Flag = "WPM",
+local LettersPerSecond = Tab:CreateSlider({
+    Name = "Letters per second",
+    Range = {1, 10},
+    Increment = 1,
+    Suffix = "Letters",
+    CurrentValue = 5,
+    Flag = "LPS",
     Callback = function(Value)
-        LPS = Value / 60
+        LPS = Value
     end,
 })
 
@@ -141,7 +141,7 @@ local DelayAnswer = Tab:CreateSlider({
 })
 
 
-local CreditsTab = Window:CreateTab("Credits", 4483362458)
+local CreditsTab = Window:CreateTab("Credits", 4483362458) -- Title, Image
 local DiscordName = CreditsTab:CreateLabel("Discord: super_destroyer384#2610")
 
 
