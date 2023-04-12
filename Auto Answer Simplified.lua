@@ -1,12 +1,9 @@
-local Custom_Dictionary = _G.Custom_Dictionary or {} -- Make sure to enter data correctly
-local Answer_Delay = _G.Answer_Delay or 3
-local LPS = _G.LPS or 5  -- Letters per second
-
+local Custom_Dictionary = _G.Custom_Dictionary or {} -- Make sure to enter data correctly f.e. - {["Name something you eat with"] = "Serving spoon",}
 
 local Workspace = game:GetService("Workspace")
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local Gui = Players.LocalPlayer.PlayerGui.Main
+local Gui = Playgame:GetService("Players").LocalPlayer.PlayerGui.Main
+local Answer_Delay = 3
+local LPS = 8  -- Letters per second
 local AutoAnswering = false
 
 
@@ -75,27 +72,27 @@ local Window = Rayfield:CreateWindow({
    LoadingSubtitle = "Answer or Die",
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = nil, -- Create a custom folder for your hub/game
+      FolderName = nil,
       FileName = "AnswerOrDie"
    },
    Discord = {
       Enabled = false,
-      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD.
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+      Invite = "noinvitelink",
+      RememberJoins = true
    },
-   KeySystem = false, -- Set this to true to use our key system
+   KeySystem = false,
    KeySettings = {
       Title = "Sirius Hub",
       Subtitle = "Key System",
       Note = "Join the discord (discord.gg/sirius)",
       FileName = "SiriusKey",
       SaveKey = true,
-      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      GrabKeyFromSite = false,
       Key = "Hello"
    }
 })
 
-local Tab = Window:CreateTab("Auto Answer", 4483362458) -- Title, Image
+local Tab = Window:CreateTab("Auto Answer", 4483362458)
 
 local Label = Tab:CreateLabel("Answer for current question: " .. Answers[Gui.Question.Bg.QuestionTxt.Text])
 
@@ -141,7 +138,7 @@ local DelayAnswer = Tab:CreateSlider({
 })
 
 
-local CreditsTab = Window:CreateTab("Credits", 4483362458) -- Title, Image
+local CreditsTab = Window:CreateTab("Credits", 4483362458)
 local DiscordName = CreditsTab:CreateLabel("Discord: super_destroyer384#2610")
 
 
