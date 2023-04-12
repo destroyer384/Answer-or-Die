@@ -1,18 +1,16 @@
 local Custom_Dictionary = _G.Custom_Dictionary or {} -- Make sure to enter data correctly
 local Custom_Answer_Delay = _G.Custom_Answer_Delay or 3
 local LPS = _G.LPS or 5  -- Letters per second
-local Webhook_URL = _G.Webhook_URL or false
-
-print("Auto answer is ready.")
 
 
 local Workspace = game:GetService("Workspace")
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local Gui = Players.LocalPlayer.PlayerGui.Main
+local AutoAnswering = false
 
 
--- 32/36 are the best answers
+-- 33/36 are the best answers
 local Answers = {
     ["Name a popular vegetable"] = "Sweet potato",                                      -- Best answer
     ["Name something you eat with"] = "Ice Cream Spoon",                                -- Best answer
@@ -68,19 +66,101 @@ local function AnswerTheQuestion(Question)
 end
 
 
+-- Using library
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Answer or Die",
+   LoadingTitle = "Rayfield Interface Suite",
+   LoadingSubtitle = "Answer or Die",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "AnswerOrDie"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD.
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Sirius Hub",
+      Subtitle = "Key System",
+      Note = "Join the discord (discord.gg/sirius)",
+      FileName = "SiriusKey",
+      SaveKey = true,
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = "Hello"
+   }
+})
+
+local Tab = Window:CreateTab("Auto Answer", 4483362458) -- Title, Image
+
+local Label = Tab:CreateLabel("Answer for current question: " .. Answers[Gui.Question.Bg.QuestionTxt.Text])
+
+local Button = Tab:CreateButton({
+    Name = "Answer the question",
+    Callback = function()
+        AnswerTheQuestion(Gui.Question.Bg.QuestionTxt.Text)
+    end,
+})
+
+local Toggle = Tab:CreateToggle({
+    Name = "Auto answer",
+    CurrentValue = false,
+    Flag = "Auto answer",
+    Callback = function(Value)
+        AutoAnswering = Value
+    end,
+})
+
+local WPM = Tab:CreateSlider({
+    Name = "Words per minute",
+    Range = {60, 600},
+    Increment = 30,
+    Suffix = "Words Per Minute",
+    CurrentValue = 300,
+    Flag = "WPM",
+    Callback = function(Value)
+        LPS = Value / 60
+    end,
+})
+
+
+local DelayAnswer = Tab:CreateSlider({
+    Name = "Delay before answering",
+    Range = {0, 12},
+    Increment = 1,
+    Suffix = "Seconds",
+    CurrentValue = 3,
+    Flag = "DelayAnswer",
+    Callback = function(Value)
+        Custom_Answer_Delay = Value
+    end,
+})
+
+
+local CreditsTab = Window:CreateTab("Credits", 4483362458) -- Title, Image
+local DiscordName = CreditsTab:CreateLabel("Discord: super_destroyer384#2610")
+
+
 local function onQuestionUpdate()
-    TheQuestion = Gui.Question.Bg.QuestionTxt.Text
+    if AutoAnswering then
+        TheQuestion = Gui.Question.Bg.QuestionTxt.Text
 
-    local Answer = Answers[TheQuestion]
-    if Answer then
-        -- After 6 seconds, qeustion appears on the screen
-        wait(6 + Custom_Answer_Delay + (string.len(Answer) / LPS))
+        local Answer = Answers[TheQuestion]
+        if Answer then
+            Label:Set("Answer for current question: " .. Answers[Gui.Question.Bg.QuestionTxt.Text])
 
-        AnswerTheQuestion(TheQuestion)
-    elseif TheQuestion == "" then
-        print("Couldn't get question...")
-    else
-        print("Cant find the answer to this question:", '"' .. TheQuestion .. '"')
+            -- After 6 seconds, qeustion appears on the screen
+            wait(6 + Custom_Answer_Delay + (string.len(Answer) / LPS))
+            AnswerTheQuestion(TheQuestion)
+        elseif TheQuestion == "" then
+            print("Couldn't get question...")
+        else
+            print("Cant find the answer to this question:", '"' .. TheQuestion .. '"')
+        end
     end
 end
 
